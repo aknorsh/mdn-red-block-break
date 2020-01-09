@@ -45,7 +45,7 @@
   // Paddle
 
   var paddleHeight = 10;
-  var paddleWidth = 75;
+  var paddleWidth = 150;
   var paddleX = (canvas.width - paddleWidth) / 2;
   
   var rightPressed = false;
@@ -76,10 +76,10 @@
     }
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
-      paddleX += 7;
+      paddleX += 11;
     }
     else if (leftPressed && paddleX > 0) {
-      paddleX -= 7;
+      paddleX -= 11;
     }
 
     x += dx;
