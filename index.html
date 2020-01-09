@@ -17,6 +17,7 @@
   var ctx = canvas.getContext("2d");
 
   var ballRadius = 10;
+  var ballColor = '#0095DD';
 
   var x = canvas.width / 2;
   var y = 30;
@@ -26,10 +27,15 @@
   
   var theta = 0;
 
+  function randColor() {
+    const colorBase = '0123456789ABCDEF';
+    return '#' + Array(6).fill().map(_=>colorBase[Math.floor(Math.random() * colorBase.length)]).join('');
+  }
+
   function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = ballColor;
     ctx.fill();
     ctx.closePath();
   }
@@ -41,13 +47,17 @@
     y += dy;
     dx += Math.cos(theta);
     dy += Math.sin(theta);
-    theta += Math.PI / 12;
+    theta += Math.PI / 120;
 
     if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
-      dx = -dx;
+      dx = -dx/1.1;
+      dy += dx;
+      ballColor = randColor();
     }
     if (y + dy < ballRadius || y + dy > canvas.height - ballRadius) {
-      dy = -dy;
+      dy = -dy/1.1;
+      dx += dy;
+      ballColor = randColor();
     }
   }
 
