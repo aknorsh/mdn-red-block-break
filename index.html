@@ -47,6 +47,9 @@
   var paddleHeight = 10;
   var paddleWidth = 75;
   var paddleX = (canvas.width - paddleWidth) / 2;
+  
+  var rightPressed = false;
+  var leftPressed = false;
 
   function drawPaddle() {
     ctx.beginPath();
@@ -74,6 +77,28 @@
       dy = -dy/1.1;
       dx += dy;
       ballColor = randColor();
+    }
+  }
+
+  // Main routine
+
+  document.addEventListener("keydown", keyDownHandler, false);
+  function keyDownHandler(e) {
+    if (e.key == "Right" || e.key == "ArrowRight") {
+      rightPressed = true;
+    }
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
+      leftPressed = true;
+    }
+  }
+
+  document.addEventListener("keyUp", keyUpHandler, false);
+  function keyUpHandler(e) {
+    if (e.key == "Right" || e.key == "ArrowRight") {
+      rightPressed = false;
+    }
+    else if (e.key == "Left" || e.key == "ArrowLeft") {
+      leftPressed = false;
     }
   }
 
