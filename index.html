@@ -42,6 +42,13 @@
     dx += Math.cos(theta);
     dy += Math.sin(theta);
     theta += Math.PI / 12;
+
+    if (x + dx < 0 || x + dx > canvas.width) {
+      dx = -dx;
+    }
+    if (y + dy < 0 || y + dy > canvas.height) {
+      dy = -dy;
+    }
   }
 
   setInterval(draw, 10);
