@@ -30,18 +30,19 @@ function drawBall() {
   ctx.closePath();
 }
 
-// Paddle
+const paddle = {
+  height: 10,
+  width: 150
+}
 
-const paddleHeight = 10;
-const paddleWidth = 150;
-let paddleX = (canvas.width - paddleWidth) / 2;
+paddle.x = (canvas.width - paddle.width) / 2;
 
 let rightPressed = false;
 let leftPressed = false;
 
 function drawPaddle() {
   ctx.beginPath();
-  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+  ctx.rect(paddle.x, canvas.height - paddle.height, paddle.width, paddle.height);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
@@ -130,10 +131,10 @@ function renderBrickBreak(whereBallHits) {
     dy = -dy;
     ballColor = randColor();
   } else if (y + dy > canvas.height - ballRadius) {
-    if (x > paddleX && x < paddleX + paddleWidth) {
+    if (x > paddle.x && x < paddle.x + paddle.width) {
       dy = -dy * 1.2;
-      dx = (x - paddleX - paddleWidth / 2) / 20;
-      whereBallHits = x - paddleX;
+      dx = (x - paddle.x - paddle.width / 2) / 20;
+      whereBallHits = x - paddle.x;
     }
     else {
       initGame();
@@ -142,11 +143,11 @@ function renderBrickBreak(whereBallHits) {
 
   collisionDetection();
 
-  if (rightPressed && paddleX < canvas.width - paddleWidth) {
-    paddleX += 11;
+  if (rightPressed && paddle.x < canvas.width - paddle.width) {
+    paddle.x += 11;
   }
-  else if (leftPressed && paddleX > 0) {
-    paddleX -= 11;
+  else if (leftPressed && paddle.x > 0) {
+    paddle.x -= 11;
   }
   x += dx;
   y += dy;
@@ -178,8 +179,8 @@ function keyUpHandler(e) {
 document.addEventListener("mousemove", mouseMoveHanler, false);
 function mouseMoveHanler(e) {
   let relativeX = e.clientX - canvas.offsetLeft;
-  if (relativeX > paddleWidth / 2 && relativeX < canvas.width - paddleWidth / 2) {
-    paddleX = relativeX - paddleWidth / 2;
+  if (relativeX > paddle.width / 2 && relativeX < canvas.width - paddle.width / 2) {
+    paddle.x = relativeX - paddle.width / 2;
   }
 }
 
