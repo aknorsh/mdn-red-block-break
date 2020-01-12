@@ -186,6 +186,14 @@
     }
   }
 
+  document.addEventListener("mousemove", mouseMoveHanler, false);
+  function mouseMoveHanler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > paddleWidth / 2 && relativeX < canvas.width - paddleWidth / 2) {
+      paddleX = relativeX - paddleWidth / 2;
+    }
+  }
+
   var interval = setInterval(draw, 10);
 
 
