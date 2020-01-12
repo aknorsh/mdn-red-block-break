@@ -69,16 +69,33 @@
   var brickOffsetTop = 30;
   var brickOffsetLeft = 30;
 
-  var bricks = Array(brickColumnCount).fill().map(col => {
-    return Array(brickRowCount).fill().map(r => {
-      return { x: 0, y: 0 };
+
+  var bricks = Array(brickColumnCount).fill().map((_, c) => {
+    return Array(brickRowCount).fill().map((_, r) => {
+      return {
+        x: c * (brickWidth + brickPadding) + brickOffsetLeft,
+        y: r * (brickHeight + brickPadding) + brickOffsetTop
+      };
     })
   });
+
+  function drawBricks() {
+    bricks.map(col => {
+      col.map(obj => {
+        ctx.beginPath();
+        ctx.rect(obj.x, obj.y, brickWidth, brickHeight);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+      })
+    })
+  }
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
+    drawBricks();
 
     if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
       dx = -dx;
