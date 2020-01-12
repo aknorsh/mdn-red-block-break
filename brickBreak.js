@@ -2,9 +2,10 @@ const canvas = document.getElementById("brickBreak");
 let ctx = canvas.getContext("2d");
 
 // Ball
-
-const ballRadius = 10;
-let ballColor = '#0095DD';
+let ball = {
+  radius: 10,
+  color: '#0095DD'
+}
 
 let x, y;
 let dx, dy;
@@ -24,8 +25,8 @@ function randColor() {
 
 function drawBall() {
   ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-  ctx.fillStyle = ballColor;
+  ctx.arc(x, y, ball.radius, 0, Math.PI*2);
+  ctx.fillStyle = ball.color;
   ctx.fill();
   ctx.closePath();
 }
@@ -49,21 +50,22 @@ function drawPaddle() {
 }
 
 // Blocks
+//
+const bconf = {
+  rowCnt: 3,
+  colCnt: 5,
+  width: 75,
+  height: 20,
+  padding: 10,
+  offTop: 30,
+  offLeft: 30
+}
 
-const brickRowCount = 3;
-const brickColumnCount = 5;
-const brickWidth = 75;
-const brickHeight = 20;
-const brickPadding = 10;
-const brickOffsetTop = 30;
-const brickOffsetLeft = 30;
-
-
-let bricks = Array(brickColumnCount).fill().map((_, c) => {
-  return Array(brickRowCount).fill().map((_, r) => {
+let bricks = Array(bconf.colCnt).fill().map((_, c) => {
+  return Array(bconf.rowCnt).fill().map((_, r) => {
     return {
-      x: c * (brickWidth + brickPadding) + brickOffsetLeft,
-      y: r * (brickHeight + brickPadding) + brickOffsetTop,
+      x: c * (bconf.width + bconf.padding) + bconf.offLeft,
+      y: r * (bconf.height + bconf.padding) + bconf.offTop,
       status: 1
     };
   })
@@ -74,7 +76,7 @@ function drawBricks() {
     col.map(obj => {
       if (obj.status === 1) {
         ctx.beginPath();
-        ctx.rect(obj.x, obj.y, brickWidth, brickHeight);
+        ctx.rect(obj.x, obj.y, bconf.width, bconf.height);
         ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
@@ -100,13 +102,13 @@ function collisionDetection() {
   bricks.map(col => {
     col.map(b => {
       if (b.status === 1
-      && x > b.x && x < b.x + brickWidth
-      && y > b.y && y < b.y + brickHeight) {
+      && x > b.x && x < b.x + bconf.width
+      && y > b.y && y < b.y + bconf.height) {
         dy = -dy;
-        ballColor = randColor();
+        ball.color = randColor();
         b.status = 0;
         score++;
-        if (score === brickRowCount * brickColumnCount) {
+        if (score === bconf.rowCnt * bconf.colCnt) {
           alert('YOU WIN, CONGRATULATION!');
           document.location.reload();
         }
@@ -123,14 +125,14 @@ function renderBrickBreak(whereBallHits) {
   drawBricks();
   drawStatus();
 
-  if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
+  if (x + dx < ball.radius || x + dx > canvas.width - ball.radius) {
     dx = -dx;
-    ballColor = randColor();
+    ball.color = randColor();
   }
-  if (y + dy < ballRadius) {
+  if (y + dy < ball.radius) {
     dy = -dy;
-    ballColor = randColor();
-  } else if (y + dy > canvas.height - ballRadius) {
+    ball.color = randColor();
+  } else if (y + dy > canvas.height - ball.radius) {
     if (x > paddle.x && x < paddle.x + paddle.width) {
       dy = -dy * 1.2;
       dx = (x - paddle.x - paddle.width / 2) / 20;
