@@ -2,7 +2,6 @@ const btcanvas = document.getElementById("btree");
 let btx = btcanvas.getContext("2d");
 let ar = [];
 
-
 function renderBtree (ipt) {
   btx.clearRect(0, 0, btcanvas.width, btcanvas.height);
   ar.push(ipt);
