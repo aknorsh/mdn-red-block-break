@@ -25,7 +25,7 @@
   var y = 30;
 
   var dx = 1;
-  var dy = 0;
+  var dy = 2;
   
   var theta = 0;
 
@@ -66,17 +66,15 @@
 
     if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
       dx = -dx;
-      dy += dx;
       ballColor = randColor();
     }
     if (y + dy < ballRadius) {
-      dy = -dy/1.1;
-      dx += dy;
+      dy = -dy;
       ballColor = randColor();
     } else if (y + dy > canvas.height - ballRadius) {
       if (x > paddleX && x < paddleX + paddleWidth) {
-        dy = -dy * 1.5;
-        dx = 2 * (paddleWidth - x + paddleX) / paddleWidth;
+        dy = -dy * 1.2;
+        dx = (x - paddleX - paddleWidth / 2) / 20;
       }
       else {
         alert('GAME OVER');
