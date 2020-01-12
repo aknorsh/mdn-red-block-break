@@ -150,7 +150,7 @@
       ballColor = randColor();
     } else if (y + dy > canvas.height - ballRadius) {
       if (x > paddleX && x < paddleX + paddleWidth) {
-        dy = -dy * 1.1;
+        dy = -dy * 1.2;
         dx = (x - paddleX - paddleWidth / 2) / 20;
       }
       else {
