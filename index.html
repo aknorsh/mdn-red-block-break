@@ -142,11 +142,11 @@
       ballColor = randColor();
     } else if (y + dy > canvas.height - ballRadius) {
       if (x > paddleX && x < paddleX + paddleWidth) {
-        dy = -dy * 1.2;
+        dy = -dy * 1.1;
         dx = (x - paddleX - paddleWidth / 2) / 20;
       }
       else {
-        alert('GAME OVER');
+        alert('GAME OVER! (SCORE: ' + score + ')');
         document.location.reload();
         clearInterval(interval);
       }
