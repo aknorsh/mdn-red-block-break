@@ -114,12 +114,21 @@ function collisionDetection() {
   })
 }
 
+// Passing Where the ball hits
+let whereBallHits = undefined;
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
   drawPaddle();
   drawBricks();
   drawStatus();
+
+  if (whereBallHits) {
+    // render funciton is defined in btree.js
+    renderBtree(whereBallHits);
+    whereBallHits = undefined;
+  }
 
   if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
     dx = -dx;
@@ -132,6 +141,7 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy * 1.2;
       dx = (x - paddleX - paddleWidth / 2) / 20;
+      whereBallHits = x - paddleX;
     }
     else {
       initGame();
