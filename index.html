@@ -69,10 +69,20 @@
       dy += dx;
       ballColor = randColor();
     }
-    if (y + dy < ballRadius || y + dy > canvas.height - ballRadius) {
+    if (y + dy < ballRadius) {
       dy = -dy/1.1;
       dx += dy;
       ballColor = randColor();
+    } else if (y + dy > canvas.height - ballRadius) {
+      if (x > paddleX && x < paddleX + paddleWidth) {
+        dy = -dy/1.1;
+        dx += dy;
+      }
+      else {
+        alert('GAME OVER');
+        document.location.reload();
+        clearInterval(interval);
+      }
     }
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
@@ -111,7 +121,7 @@
     }
   }
 
-  setInterval(draw, 10);
+  var interval = setInterval(draw, 10);
 
 
 </script>
