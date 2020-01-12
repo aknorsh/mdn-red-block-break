@@ -21,13 +21,19 @@
   var ballRadius = 10;
   var ballColor = '#0095DD';
 
-  var x = canvas.width / 2;
-  var y = canvas.height * 2 / 3;
+  var x;
+  var y;
 
-  var dx = 1;
-  var dy = -2;
-  
-  var theta = 0;
+  var dx;
+  var dy;
+
+  function initGame() {
+    x = canvas.width / 2;
+    y = canvas.height * 2 / 3;
+
+    dx = 1;
+    dy = -2;
+  }
 
   function randColor() {
     const colorBase = '0123456789ABCDEF';
@@ -95,7 +101,7 @@
   }
 
 
-  // Score & dead alive
+  // Status
 
   var score = 0;
   var lives = 3;
@@ -148,9 +154,14 @@
         dx = (x - paddleX - paddleWidth / 2) / 20;
       }
       else {
-        alert('GAME OVER! (SCORE: ' + score + ')');
-        document.location.reload();
-        clearInterval(interval);
+        lives -= 1;
+        if (!lives) {
+          alert('GAME OVER! (SCORE: ' + score + ')');
+          document.location.reload();
+          clearInterval(interval);
+        } else {
+          initGame();
+        }
       }
     }
 
@@ -196,6 +207,7 @@
     }
   }
 
+  initGame();
   var interval = setInterval(draw, 10);
 
 
