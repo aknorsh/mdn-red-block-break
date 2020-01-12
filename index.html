@@ -74,7 +74,8 @@
     return Array(brickRowCount).fill().map((_, r) => {
       return {
         x: c * (brickWidth + brickPadding) + brickOffsetLeft,
-        y: r * (brickHeight + brickPadding) + brickOffsetTop
+        y: r * (brickHeight + brickPadding) + brickOffsetTop,
+        status: 1
       };
     })
   });
@@ -82,11 +83,13 @@
   function drawBricks() {
     bricks.map(col => {
       col.map(obj => {
-        ctx.beginPath();
-        ctx.rect(obj.x, obj.y, brickWidth, brickHeight);
-        ctx.fillStyle = "#0095DD";
-        ctx.fill();
-        ctx.closePath();
+        if (obj.status === 1) {
+          ctx.beginPath();
+          ctx.rect(obj.x, obj.y, brickWidth, brickHeight);
+          ctx.fillStyle = "#0095DD";
+          ctx.fill();
+          ctx.closePath();
+        }
       })
     })
   }
@@ -96,8 +99,11 @@
   function collisionDetection() {
     bricks.map(col => {
       col.map(b => {
-        if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+        if (b.status === 1
+        && x > b.x && x < b.x + brickWidth
+        && y > b.y && y < b.y + brickHeight) {
           dy = -dy;
+          b.status = 0;
         }
       })
     })
