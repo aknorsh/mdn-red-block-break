@@ -158,7 +158,6 @@
         if (!lives) {
           alert('GAME OVER! (SCORE: ' + score + ')');
           document.location.reload();
-          clearInterval(interval);
         } else {
           initGame();
         }
@@ -175,6 +174,7 @@
     }
     x += dx;
     y += dy;
+    requestAnimationFrame(draw);
   }
 
   // Main routine
@@ -208,7 +208,7 @@
   }
 
   initGame();
-  var interval = setInterval(draw, 10);
+  draw();
 
 
 </script>
