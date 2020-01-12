@@ -95,14 +95,16 @@
   }
 
 
-  // Score
+  // Score & dead alive
 
   var score = 0;
+  var lives = 3;
 
-  function drawScore() {
+  function drawStatus() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: " + score, 8, 20);
+    ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
   }
 
   // Collision
@@ -131,7 +133,7 @@
     drawBall();
     drawPaddle();
     drawBricks();
-    drawScore();
+    drawStatus();
 
     if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
       dx = -dx;
