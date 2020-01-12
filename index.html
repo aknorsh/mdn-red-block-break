@@ -65,7 +65,7 @@
     drawPaddle();
 
     if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
-      dx = -dx/1.1;
+      dx = -dx;
       dy += dx;
       ballColor = randColor();
     }
@@ -75,8 +75,8 @@
       ballColor = randColor();
     } else if (y + dy > canvas.height - ballRadius) {
       if (x > paddleX && x < paddleX + paddleWidth) {
-        dy = -dy/1.1;
-        dx += dy;
+        dy = -dy * 1.5;
+        dx = 2 * (paddleWidth - x + paddleX) / paddleWidth;
       }
       else {
         alert('GAME OVER');
@@ -91,12 +91,8 @@
     else if (leftPressed && paddleX > 0) {
       paddleX -= 11;
     }
-
     x += dx;
     y += dy;
-    dx += Math.cos(theta);
-    dy += Math.sin(theta);
-    theta += Math.PI / 120;
   }
 
   // Main routine
